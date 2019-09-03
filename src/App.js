@@ -33,15 +33,20 @@ class App extends React.Component {
         todoTask: todoData,
       };
       }
-      
-   handleSingleClick = event => {
-      console.log(event.target.value);
-      this.setState({todoTask: event.target.value});
-    }
-     handleChangeInput = event => {
-       console.log(event.target.value);
-        this.setState({todoTask: event.target.value});
-    };
+// toggleFinished is function that sets the state and maps over the data with an 'if' statement
+toggleFinished = (id) => {
+  this.setState({   // setState to mutate the state
+    todoTask: this.state.todoTask.map(todo => {
+      if (id === todo.id) {
+        return {...todo, completed: !todo.completed};
+      } else{
+        return todo;
+      }
+    })
+  });
+}
+
+    
 
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
@@ -55,7 +60,8 @@ class App extends React.Component {
       <div>
            <h2>Welcome to your Personal Todo App!</h2>
               {/* Access the properties of class with the 'this' -- map over the array of data and display it on the page */}
-              <TodoList todoTask={this.state.todoTask}/>
+              <TodoList todoTask={this.state.todoTask}
+                        toggleFinished={this.toggleFinished}/>
         {/* <ToDoList /> */}
         <InputForm propsMessage={this.handleChangeInput}
                   propsSave={this.handleSingleClick}

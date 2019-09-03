@@ -2,17 +2,32 @@ import React from "react";
 
 // props is passed down in the onChange and then rendered over in App.js
 
-const InputForm = props => {
-   
+class InputForm extends React.Component {
+    constructor(props){
+        super(props);
+        this.state ={
+            newTask: ""
+        };
+    }
+
+    handleChangeInput = event => {
+        console.log(event.target.value);
+         this.setState({[event.target.name]: event.target.value});
+     };
+   render(){
     return (
+        // onSubmit keeps the page from refreshing
         <form onSubmit={event => {event.preventDefault();}}>
           <div>
-            <input type="text" placeholder="To Do Task Here" onChange={props.propsMessage} /> 
-            <button onClickCapture={props.propsSave}>Submit To Do Item</button>
+            <input type="text" name="newTask" placeholder="To Do Task Here" 
+                                              onChange={this.handleChangeInput}// onChange event that takes in the value when type in the input
+                                              value={this.state.newTask}/> 
+            <button type="submit">Submit To Do Item</button>
             <button>Clear Completed To Do Item</button>
           </div>
         </form>
     );
+   }
 } 
 
 export default InputForm;
