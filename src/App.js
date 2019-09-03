@@ -2,7 +2,7 @@ import React from 'react';
 import InputForm from './components/TodoComponents/TodoForm';
 import TodoList from './components/TodoComponents/TodoList';
 
-
+// Array of Task data
 const todoData =  [
   {
     task: 'Plan out my day',
@@ -25,7 +25,7 @@ const todoData =  [
     completed: false
   }
 ]
-
+// Class Constructor
 class App extends React.Component {
   constructor (){
     super();
@@ -33,46 +33,50 @@ class App extends React.Component {
         todoTask: todoData,
       };
       }
+
+
 // toggleFinished is function that sets the state and maps over the data with an 'if' statement
-toggleFinished = (id) => {
-  this.setState({   // setState to mutate the state
-    todoTask: this.state.todoTask.map(todo => {
-      if (id === todo.id) {
-        return {...todo, completed: !todo.completed};
-      } else{
-        return todo;
+      toggleFinished = (id) => {
+         this.setState({   // setState to mutate the state
+         todoTask: this.state.todoTask.map(todo => {
+           if (id === todo.id) {
+             return {...todo, completed: !todo.completed};
+           } else{
+            return todo;
+           }
+         })
+       });
       }
-    })
-  });
-}
 
-addnewTask = task => {
-  this.setState({
-    todoTask: [...this.state.todoTask, {
-      task: task,
-      id: Date.now(),
-      completed: false
-    }]
-  })
-}
+      filterFinishedTask =()=>{
+         this.setState({
+         todoTask: this.state.todoTask.filter(todo =>{
+          return !todo.completed;
+          })
+       })
+      }
+
+       addnewTask = task => {
+          this.setState({
+          todoTask: [...this.state.todoTask, {
+          task: task,
+          id: Date.now(),
+          completed: false
+           }]
+         })
+       }
     
-
-  // you will need a place to store your state in this component.
-  // design `App` to be the parent component of your application.
-  // this component is going to take care of state, and any change handlers you need to work with your state
-
-
 
   render() {
     console.log(this.state);
     return (
       <div>
-           <h2>Welcome to your Personal Todo App!</h2>
+            <h2>Welcome to your Personal Todo App!</h2>
               {/* Access the properties of class with the 'this' -- map over the array of data and display it on the page */}
               <TodoList todoTask={this.state.todoTask}
                         toggleFinished={this.toggleFinished}/>
-        {/* <ToDoList /> */}
-        <InputForm addnewTask={this.addnewTask}
+              <InputForm addnewTask={this.addnewTask}
+                   filterFinishedTask={this.filterFinishedTask}
                   />
         
       </div>
