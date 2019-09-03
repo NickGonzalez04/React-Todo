@@ -1,7 +1,9 @@
 import React from 'react';
-import TextInput from './components/TodoComponents/TodoForm';
+import InputForm from './components/TodoComponents/TodoForm';
+import TodoList from './components/TodoComponents/TodoList';
 
-const ToDo = [
+
+const todoData =  [
   {
     task: 'Plan out my day',
     id: 1100,
@@ -22,15 +24,16 @@ const ToDo = [
     id: 1103,
     completed: false
   }
-];
+]
 
 class App extends React.Component {
   constructor (){
     super();
       this.state={
-        todoTask: ""
+        todoTask: todoData,
       };
       }
+      
    handleSingleClick = event => {
       console.log(event.target.value);
       this.setState({todoTask: event.target.value});
@@ -43,14 +46,21 @@ class App extends React.Component {
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
   // this component is going to take care of state, and any change handlers you need to work with your state
+
+
+
   render() {
+    console.log(this.state);
     return (
       <div>
-        <h2>Welcome to your Personal Todo App!</h2>
-        <TextInput 
-                  propsMessage={this.handleSingleClick}
+           <h2>Welcome to your Personal Todo App!</h2>
+              {/* Access the properties of class with the 'this' -- map over the array of data and display it on the page */}
+              <TodoList todoTask={this.state.todoTask}/>
+        {/* <ToDoList /> */}
+        <InputForm propsMessage={this.handleChangeInput}
+                  propsSave={this.handleSingleClick}
                   />
-        <div>{this.state.todoTask}</div>
+        
       </div>
     );
   }

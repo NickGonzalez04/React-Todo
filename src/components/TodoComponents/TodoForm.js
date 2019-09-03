@@ -2,15 +2,17 @@ import React from "react";
 
 // props is passed down in the onChange and then rendered over in App.js
 
-const TextInput = props => {
+const InputForm = props => {
    
     return (
-        <div>
-        <input type="text" placeholder="To Do Task Here" onChange={props.propsMessage} /> 
-        <button onClick={props.propsMessage}>Submit To Do Item</button>
-        <button>Clear Completed To Do Item</button>
-        </div>
+        <form onSubmit={event => {event.preventDefault();}}>
+          <div>
+            <input type="text" placeholder="To Do Task Here" onChange={props.propsMessage} /> 
+            <button onClickCapture={props.propsSave}>Submit To Do Item</button>
+            <button>Clear Completed To Do Item</button>
+          </div>
+        </form>
     );
 } 
 
-export default TextInput;
+export default InputForm;
