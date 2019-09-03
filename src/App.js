@@ -46,6 +46,15 @@ toggleFinished = (id) => {
   });
 }
 
+addnewTask = task => {
+  this.setState({
+    todoTask: [...this.state.todoTask, {
+      task: task,
+      id: Date.now(),
+      completed: false
+    }]
+  })
+}
     
 
   // you will need a place to store your state in this component.
@@ -63,8 +72,7 @@ toggleFinished = (id) => {
               <TodoList todoTask={this.state.todoTask}
                         toggleFinished={this.toggleFinished}/>
         {/* <ToDoList /> */}
-        <InputForm propsMessage={this.handleChangeInput}
-                  propsSave={this.handleSingleClick}
+        <InputForm addnewTask={this.addnewTask}
                   />
         
       </div>
